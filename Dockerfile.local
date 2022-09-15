@@ -1,0 +1,17 @@
+FROM node:16-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm set legacy-peer-deps=true && npm ci
+COPY . .
+RUN npm run build
+
+FROM node:16-alpine AS server
+WORKDIR /app
+COPY package*.json ./
+RUN npm set legacy-peer-deps=true && npm ci --omit=dev
+COPY --from=builder ./app/build ./build
+
+ENV NODE_PATH=./build
+ENV NODE_ENV=production
+
+CMD ["node", "./build/app.js"]

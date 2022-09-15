@@ -1,0 +1,17 @@
+.git
+.cache
+.vscode
+.gitignore*
+.prettierrc*
+.dockerignore
+gitattributes*
+npm-debug*
+
+node_modules
+Dockerfile
+build
+README.md
+
+docker-compose*
+.gitlab-ci.yml
+.env.development*

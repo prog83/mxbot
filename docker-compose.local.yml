@@ -1,0 +1,19 @@
+version: '2.1'
+
+services:
+  mxbot:
+    image: mxbot
+    container_name: mxbot
+    build:
+      context: .
+      dockerfile: ./Dockerfile.local
+    restart: unless-stopped
+    volumes:
+      - /Users/heisenberg/develop/mxbot:/app
+
+# networks:
+#   default:
+#     name: net
+#     external: true
+
+# DOCKER_BUILDKIT=1 docker-compose -f docker-compose.local.yml up -d 

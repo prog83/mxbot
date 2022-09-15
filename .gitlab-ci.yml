@@ -1,0 +1,127 @@
+stages:
+  - prepare
+  - test
+  - build
+  - docker
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+variables:
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_PIPELINE_IID
+  API_VERSION: v1
+
+dependency:
+  image: node:16-alpine
+  stage: prepare
+  tags:
+    - nodejs
+  only:
+    - develop
+    - main
+  script:
+    - npm set legacy-peer-deps=true
+    - npm ci
+  artifacts:
+    paths:
+      - node_modules/
+
+lint:
+  image: node:16-alpine
+  stage: test
+  tags:
+    - nodejs
+  only:
+    - develop
+    - main
+  script:
+    - npm run lint
+
+test:
+  image: node:16-alpine
+  stage: test
+  tags:
+    - nodejs
+  only:
+    - develop
+    - main
+  script:
+    - echo "test ok"
+    # - npm run test
+
+build:app:
+  image: node:16-alpine
+  stage: build
+  tags:
+    - nodejs
+  only:
+    - develop
+    - main
+  script:
+    - echo "ACCESS_TOKEN=$ACCESS_TOKEN" >> .env.production.local
+    - npm run build
+  artifacts:
+    paths:
+      - build/
+
+prodduction-dependency:
+  image: node:16-alpine
+  stage: build
+  tags:
+    - nodejs
+  only:
+    - develop
+    - main
+  script:
+    - npm set legacy-peer-deps=true
+    - npm ci --omit=dev
+  artifacts:
+    paths:
+      - node_modules/
+
+build:image:
+  image: docker:20.10.17
+  stage: docker
+  tags:
+    - docker
+  only:
+    - develop
+    - main
+  variables:
+    DOCKER_TLS_CERTDIR: '/certs'
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker build -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+
+deploy:develop:
+  image: docker/compose:alpine-1.29.2
+  stage: deploy
+  tags:
+    - docker
+  only:
+    - develop
+  script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - echo "IMAGE_TAG=$IMAGE_TAG" >> .env
+    - echo "API_VERSION=$API_VERSION" >> .env
+    - docker-compose down --remove-orphans
+    - docker-compose pull
+    - docker-compose up -d
+  dependencies: []
+
+deploy:production:
+  image: docker:20.10.17
+  stage: deploy
+  tags:
+    - docker
+  only:
+    - main
+  # services:
+  #   - docker:20.10.17-dind
+  script:
+    - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
+  when: manual
+  dependencies: []

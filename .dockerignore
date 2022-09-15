@@ -1,0 +1,15 @@
+.git
+.cache
+.vscode
+.gitignore*
+.prettierrc*
+.dockerignore
+gitattributes*
+npm-debug*
+
+docker-compose*
+Dockerfile
+README.md
+
+.gitlab-ci.yml
+.env.development*

@@ -1,0 +1,17 @@
+{
+  "deviceId": "TNLNDTMFCC",
+  "rooms": {
+    "e8fd1c16f0123d46c602775262004c5c83a77abbb1899444d07f0f12eff5c7978c444f1179f6acc48f353a2d8c48f4dd5827c2b67921eccf3f3d67f7234f6ca7": {
+      "algorithm": "m.megolm.v1.aes-sha2",
+      "historyVisibility": "shared"
+    },
+    "b36dd81be6519a5acd77b95822da4c6e98023441fb7c719bd76874096eba04787d486d722554bc4a54c92c677f0697c04d786dcc3678ecf662b8f22d56301f82": {
+      "algorithm": "m.megolm.v1.aes-sha2",
+      "historyVisibility": "shared"
+    },
+    "4d1299c3920e9aabd2acd0e58ffd928ad0fa024de8881b9b91dcf73a122d66c30d49bc24c16db617e906ab43f59d4e2dfd58607359619fbc0ac1f6f92c3e1576": {
+      "algorithm": "m.megolm.v1.aes-sha2",
+      "historyVisibility": "shared"
+    }
+  }
+}

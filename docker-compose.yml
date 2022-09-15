@@ -1,0 +1,14 @@
+version: '2.1'
+
+services:
+  mxbot:
+    image: ${IMAGE_TAG}
+    container_name: mxbot
+    restart: unless-stopped
+    volumes:
+      - /home/ubuntu/apps/mxbot:/app
+
+# networks:
+#   default:
+#     name: net
+#     external: true
