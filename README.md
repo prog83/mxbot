@@ -4,7 +4,7 @@ matrix bot
 
 ## Installation
 
-Download or git clone [source code](https://git.dc2.local/o.myronov/dictionaries).
+Download or git clone [source code](https://github.com/prog83/mxbot).
 
 Use the package manager [npm](https://www.npmjs.com/get-npm) to install.
 

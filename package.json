@@ -5,7 +5,7 @@
   "author": "o.myronov",
   "main": "build/app.js",
   "license": "MIT",
-  "homepage": "https://git.dc2.local/o.myronov",
+  "homepage": "https://github.com/prog83/mxbot",
   "scripts": {
     "dev:app": "cross-env NODE_ENV=development NODE_PATH=./build nodemon --inspect ./build/app.js ",
     "dev:build": "cross-env NODE_ENV=development && npm run pre:run && tsc --watch -p tsconfig.build.json",
@@ -49,10 +49,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/prog83"
+    "url": "https://github.com/prog83/mxbot.git"
   },
   "bugs": {
-    "url": "https://github.com/prog83"
+    "url": "https://github.com/prog83/mxbot/issues"
   },
   "keywords": [
     "matrix",
